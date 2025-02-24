@@ -15,24 +15,25 @@ import com.geeks.fifthproject.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ActivityMainBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         EdgeToEdge.enable(this);
-
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         String urlImage = "https://i.pinimg.com/originals/23/51/bc/2351bc65b2b5d75cef146b7edddf805b.gif";
-        ImageView imageView = findViewById(R.id.imageView);
-        imageView.setOnClickListener(view -> {
-            Intent intent = new Intent (MainActivity.this, MapsActivity.class);
-            startActivity(intent);
-        });
         Glide.with(MainActivity.this)
                 .load(urlImage)
                 .placeholder(R.color.gray)
-                .into(imageView);
+                .into(binding.imageView);
+
+        binding.imageView.setOnClickListener(view -> {
+            Intent intent = new Intent (MainActivity.this, MapsActivity.class);
+            startActivity(intent);
+        });
 
     }
 }
